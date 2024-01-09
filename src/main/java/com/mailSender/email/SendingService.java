@@ -1,5 +1,6 @@
 package com.mailSender.email;
 
+import com.mailSender.email.mailObj.Mail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +12,10 @@ public class SendingService {
 
     private final MailContentService mailContentService;
 
-    public void registerMail() {
-        String recipientEmail = "piotr.kow.59@gmail.com";
-        String emailSubject = "Temat wiadomości";
-        String emailContent = "Treść wiadomości";
+    public void registerMail(Mail mail) {
+        String recipientEmail = mail.getAddressee();
+        String emailSubject = "Registration";
+        String emailContent = mailContentService.buildEmail(mail);
 
         emailService.sendEmail(recipientEmail, emailSubject, emailContent);
     }
