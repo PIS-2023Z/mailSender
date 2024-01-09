@@ -15,8 +15,11 @@ public class SendingService {
     public void registerMail(Mail mail) {
         String recipientEmail = mail.getAddressee();
         String emailSubject = "Registration";
-        String emailContent = mailContentService.buildEmail(mail);
-
-        emailService.sendEmail(recipientEmail, emailSubject, emailContent);
+        String emailContent = mailContentService.buildRegistrationEmail(mail);
+        try {
+            emailService.send(mail, emailContent);
+        } catch (Exception e) {
+            throw new RuntimeException("error sending mail: " + e.getMessage());
+        }
     }
 }

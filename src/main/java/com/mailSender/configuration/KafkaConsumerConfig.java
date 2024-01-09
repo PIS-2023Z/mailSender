@@ -1,7 +1,5 @@
 package com.mailSender.configuration;
 
-import com.mailSender.email.mailObj.Mail;
-import com.mailSender.email.mailObj.MailDeserializer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,20 +22,20 @@ public class KafkaConsumerConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MailDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringSerializer.class);
         return props;
     }
 
     @Bean
-    public ConsumerFactory<String, Mail> consumerFactory() {
+    public ConsumerFactory<String, String> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(consumerConfig());
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, Mail>> factory (
-            ConsumerFactory<String, Mail> consumerFactory
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> factory (
+            ConsumerFactory<String, String> consumerFactory
     ) {
-        ConcurrentKafkaListenerContainerFactory<String, Mail> factory =
+        ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
         return factory;

@@ -2,10 +2,14 @@ package com.mailSender.email.mailObj;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
-public class Mail {
+@NoArgsConstructor
+public class Mail implements Serializable {
 
     private String addressee;
 
@@ -14,5 +18,8 @@ public class Mail {
     private MailType mailType;
 
     private String url;
+    private String name;
+
+    private String topic;
 }
 
