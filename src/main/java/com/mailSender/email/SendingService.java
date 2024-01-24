@@ -15,7 +15,8 @@ public class SendingService {
     public void registerMail(Mail mail) {
         String recipientEmail = mail.getAddressee();
         String emailSubject = "Registration";
-        String emailContent = mailContentService.buildRegistrationEmail(mail);
+//        String emailContent = mailContentService.buildRegistrationEmail(mail);
+        String emailContent = "Welcome to ATS! You will find best offers with us.\n\nSee You soon!";
         try {
             emailService.send(mail, emailContent);
         } catch (Exception e) {

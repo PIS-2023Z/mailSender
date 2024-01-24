@@ -23,7 +23,7 @@ public class EmailService implements EmailSender{
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setTo(mail.getAddressee());
         helper.setSubject(mail.getTopic());
-        helper.setText(content, true);
+        helper.setText(content, false);
 
         javaMailSender.send(message);
     }
